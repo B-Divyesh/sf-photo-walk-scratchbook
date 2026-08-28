@@ -121,7 +121,7 @@ button:disabled, .button:disabled { opacity: .58; cursor: not-allowed; }
 .row-arrow { color: var(--leaf); font-size: 1.5rem; transition: transform 150ms ease; }
 .session-row:hover .row-arrow { transform: translateX(5px); }
 .empty-shelf { min-height: 250px; display: grid; grid-template-columns: 100px 1fr; align-items: center; max-width: 700px; margin-left: 0; padding: 2rem; border: 1px dashed var(--line); background: var(--surface); }
-.empty-shelf .specimen-number { align-self: start; font-size: 4rem; opacity: .45; }
+.empty-shelf .specimen-number { align-self: start; font-size: 4rem; }
 .empty-shelf h3 { margin-bottom: .7rem; }
 .empty-shelf p { color: var(--graphite); }
 .method { padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 5vw, 5rem); }
@@ -318,6 +318,8 @@ dialog::backdrop { background: rgba(15, 21, 17, .75); backdrop-filter: blur(4px)
   .brand-button h1 { max-width: 120px; }
   .brand-mark { width: 36px; height: 36px; }
   .connection-state { display: none; }
+  .connection-state.offline { position: fixed; z-index: 20; top: 68px; left: 0; right: 0; display: flex; justify-content: center; padding: .35rem; background: var(--brick); color: var(--paper); }
+  .connection-state.offline span { color: currentColor; }
   .header-actions { gap: .35rem; }
   .header-actions .button { padding: .6rem .75rem; }
   .hero { padding-top: 3rem; }
@@ -355,7 +357,7 @@ dialog::backdrop { background: rgba(15, 21, 17, .75); backdrop-filter: blur(4px)
   .annotation-tools { min-height: 60px; padding: .45rem; }
   .annotation-stage { height: calc(100% - 204px); }
   .annotation-foot { min-height: 72px; padding: .6rem .75rem; }
-  .annotation-foot p { display: none; }
+  .annotation-foot p { max-width: 42%; font-size: .7rem; }
   .annotation-foot .button { width: 100%; }
   .tool-spacer { display: none; }
   .color-select { grid-template-columns: 1fr; }

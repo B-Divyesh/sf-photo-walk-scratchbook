@@ -1,4 +1,4 @@
-const VERSION = "scratchbook-v1.0.0";
+const VERSION = "scratchbook-v1.0.2";
 const STATIC_CACHE = `${VERSION}-static`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 const APP_SHELL = [
@@ -16,6 +16,11 @@ self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(STATIC_CACHE);
     await cache.addAll(APP_SHELL);
+    const shellResponse = await fetch("/", { cache: "no-store" });
+    const shellHtml = await shellResponse.clone().text();
+    await cache.put("/", shellResponse);
+    const builtAssets = [...shellHtml.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map((match) => match[1]);
+    await cache.addAll([...new Set(builtAssets)]);
     if (self.registration.active) {
       const clients = await self.clients.matchAll({ type: "window" });
       clients.forEach((client) => client.postMessage({ type: "UPDATE_AVAILABLE" }));
@@ -50,7 +55,7 @@ self.addEventListener("fetch", (event) => {
         cache.put(request, response.clone());
         return response;
       } catch {
-        return (await caches.match(request)) || (await caches.match("/")) || caches.match("/offline.html");
+        return (await caches.match(request, { ignoreVary: true })) || (await caches.match("/")) || caches.match("/offline.html");
       }
     })());
     return;
@@ -58,7 +63,7 @@ self.addEventListener("fetch", (event) => {
 
   if (["script", "style", "image", "font"].includes(request.destination)) {
     event.respondWith((async () => {
-      const cached = await caches.match(request);
+      const cached = await caches.match(request, { ignoreVary: true });
       if (cached) return cached;
       const response = await fetch(request);
       if (response.ok) {

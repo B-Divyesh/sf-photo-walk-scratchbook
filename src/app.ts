@@ -85,7 +85,7 @@ export class ScratchbookApp {
           <span class="brand-mark" aria-hidden="true">⌁</span><h1>Photo Walk Scratchbook</h1>
         </button>
         <div class="header-actions">
-          <span id="connection-state" class="connection-state" aria-live="polite"><span aria-hidden="true">●</span> ${navigator.onLine ? "Ready offline" : "Offline · saved locally"}</span>
+          <span id="connection-state" class="connection-state ${navigator.onLine ? "" : "offline"}" aria-live="polite"><span aria-hidden="true">●</span> ${navigator.onLine ? "Ready offline" : "Offline · saved locally"}</span>
           <button class="icon-button" data-action="theme" aria-label="Change color theme" title="Change color theme">◐</button>
           <button class="button button-quiet" data-action="kit">Field kit</button>
         </div>
@@ -459,7 +459,7 @@ export class ScratchbookApp {
   }
 
   private attachNetworkState(): void {
-    const update = () => { const element = document.querySelector<HTMLElement>("#connection-state"); if (element) element.innerHTML = `<span aria-hidden="true">●</span> ${navigator.onLine ? "Ready offline" : "Offline · saved locally"}`; };
+    const update = () => { const element = document.querySelector<HTMLElement>("#connection-state"); if (element) { element.innerHTML = `<span aria-hidden="true">●</span> ${navigator.onLine ? "Ready offline" : "Offline · saved locally"}`; element.classList.toggle("offline", !navigator.onLine); } };
     window.addEventListener("online", update); window.addEventListener("offline", update); update();
   }
 
@@ -469,8 +469,9 @@ export class ScratchbookApp {
       if (registration.waiting) this.showUpdateToast();
       registration.addEventListener("updatefound", () => registration.installing?.addEventListener("statechange", () => { if (registration.waiting && navigator.serviceWorker.controller) this.showUpdateToast(); }));
       navigator.serviceWorker.addEventListener("message", (event) => { if (event.data?.type === "UPDATE_AVAILABLE") this.showUpdateToast(); });
+      const hadController = Boolean(navigator.serviceWorker.controller);
       let refreshing = false;
-      navigator.serviceWorker.addEventListener("controllerchange", () => { if (!refreshing) { refreshing = true; location.reload(); } });
+      navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !refreshing) { refreshing = true; location.reload(); } });
     }).catch(() => { /* The app remains usable when service workers are unavailable. */ });
   }
 
