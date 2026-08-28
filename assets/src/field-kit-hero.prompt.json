@@ -1,0 +1,9 @@
+{
+  "asset": "field-kit-hero.png",
+  "model": "factory-image (Azure OpenAI image deployment)",
+  "created": "2026-08-28",
+  "size": "1536x1024",
+  "quality": "high",
+  "prompt": "Editorial botanical field-guide plate, overhead still life of a compact unbranded black 35mm camera, pressed fern and ginkgo specimens, two blank photographic contact prints, graphite pencil and crop marks on warm cream rag paper, restrained forest green, ochre, charcoal and faded brick palette, tactile gouache with fine graphite hatching, quiet overcast window light, generous negative space, horizontal composition, crisp paper texture, no people, no text, no watermark, no logo, no brand, no glossy 3D, no neon, no gradient",
+  "review": "Accepted: coherent camera geometry and botanical specimens; no people, text, logo, watermark, or misleading UI content."
+}

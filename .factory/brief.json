@@ -1,0 +1,11 @@
+{
+  "slug": "photo-walk-scratchbook",
+  "title": "Photo Walk Scratchbook",
+  "territory": "games-creative",
+  "user": "Photographers trying to make deliberate pictures with a real camera who want a tactile, offline prompt-and-annotation companion rather than automatic image enhancement.",
+  "smallest_useful_product": "An offline tablet PWA with a short photo-walk prompt deck, a local-import contact sheet, stylus crop/line annotations, and an exportable one-page session sheet.",
+  "success_measure": "In a four-week pilot, 60% of users complete three walks and mark at least one chosen image with an intentional framing or exposure note before importing it into a full editor.",
+  "artifact_class": "pwa-offline",
+  "monetization": "one-time",
+  "constraints": "Keep images and handwriting on device by default; do not claim calibrated color or RAW support; support stylus, touch, keyboard, and reduced-motion access."
+}
